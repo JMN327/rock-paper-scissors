@@ -41,11 +41,11 @@ function playGame(){
             if (scoreDifference === 0) {
                 commentary = "A draw... play again?";
             } else if(scoreDifference > 0){
-                commentary = "You won! this could be the start of something big";
+                commentary = "You won! This could be the start of something big";
             } else {
-                commentary = "You lost! don't worry, it's just random anyway right?";
+                commentary = "You lost! Don't worry, it's just random anyway right?";
             }
-            console.log(`Finish! The  scores are: You: ${humanScore} points, Computer: ${computerScore} points. ${commentary}`)
+            console.log(`Finish! The scores are: You: ${humanScore} points, Computer: ${computerScore} points. ${commentary}`)
         }
 
 

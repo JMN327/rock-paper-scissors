@@ -7,7 +7,8 @@ let computerScore = 0;
 const btnRock = document.querySelector("#btn-rock");
 const btnPaper = document.querySelector("#btn-paper");
 const btnScissors = document.querySelector("#btn-scissors");
-
+const commentary = document.querySelector("#commentary");
+const scores = document.querySelector("#scores");
 
 btnRock.addEventListener("click", function (){
     playGame("rock")
@@ -20,55 +21,30 @@ btnScissors.addEventListener("click", function (){
 });
 
 function playGame(humanChoice){
-    
+
     let computerChoice = getComputerChoice();
-    let thisRound = playRound(humanChoice,computerChoice);
+    let resultThisRound = playRound(humanChoice,computerChoice);
 
-    const scores = document.querySelector("#scores");
-    const roundChoices = document.createElement("div");
-    roundChoices.classList.add("round-choices");
-    roundChoices.setAttribute('style', 'white-space: pre;')
-    roundChoices.textContent = "";
-    roundChoices.textContent = "You chose: " + humanChoice + "\r\nThe computer chose: " + computerChoice + "\r\n" + thisRound;
-    scores.appendChild(roundChoices);
-
-
-
-/*     //calculate difference in score and display scores with feedback for all but the final round
-    let scoreDifference = humanScore-computerScore;
-    let commentary;
-    let winningCommentary = ["You're doing great!", "Keep going champ!", "Such tactics!"];
-    let drawingCommentary = ["It couldn't be closer!", "All to play for!", "The tension mounts!"]
-    let losingCommentary = ["Hang on in there!", "Don't give up!", "Can you make a comeback?"]
-
-    if (scoreDifference === 0) {
-        commentary = drawingCommentary[Math.floor(Math.random()*drawingCommentary.length)];
-    } else if(scoreDifference > 0){
-        commentary = winningCommentary[Math.floor(Math.random()*winningCommentary.length)];
+    commentary.textContent = "You chose: " + humanChoice + "\r\nThe computer chose: " + computerChoice + "\r\n" + resultThisRound;
+    
+    if (humanScore < 5 && computerScore < 5) {
+        scores.textContent = "You: " + humanScore + " points     Computer: " + computerScore + " points"
+    } else if (humanScore === 5) {
+        scores.textContent = "You: " + humanScore + " points     Computer: " + computerScore + " points\r\n" +
+        "CONGRATULATIONS, YOU WIN!"
+        humanScore = 0;
+        computerScore = 0;
     } else {
-        commentary = losingCommentary[Math.floor(Math.random()*losingCommentary.length)];
-    } */
-
-/*     if (index < 5) {
-        console.log(`The current scores are: You: ${humanScore} points, Computer: ${computerScore} points. ${commentary}`)
-    } else {
-        // give feedback for final round and end of the game
-        if (scoreDifference === 0) {
-            commentary = "A draw... play again?";
-        } else if(scoreDifference > 0){
-            commentary = "You won! This could be the start of something big";
-        } else {
-            commentary = "You lost! Don't worry, it's just random anyway right?";
-        }
-        console.log(`Finish! The scores are: You: ${humanScore} points, Computer: ${computerScore} points. ${commentary}`)
-    } */
-
+        scores.textContent = "You: " + humanScore + " points     Computer: " + computerScore + " points\r\n" +
+        "BAD LUCK, THE COMPUTER HAS WON"
+        humanScore = 0;
+        computerScore = 0;
+    }
 }
 
 function playRound(humanChoice,computerChoice){
     let bothResults = humanChoice+computerChoice //concatenate choices to avoid nested switch statements
-    let resultText; //variable for the round result message
-    //choose the result:
+    let resultText; 
     switch (bothResults) {
         case "rockrock":
             resultText = "A draw! You both chose rock"
@@ -120,9 +96,8 @@ function playRound(humanChoice,computerChoice){
 }
 
 function getComputerChoice(){
-    let choice; //variable to store the computer's choice
-    let randomValue = Math.ceil(Math.random()*3) //variable to chose random number from 1 to 3
-    //switch statement to convert the random number to rock, paper, scissors:
+    let choice; 
+    let randomValue = Math.ceil(Math.random()*3) 
     switch(randomValue){
         case 1:
             choice = "rock"
